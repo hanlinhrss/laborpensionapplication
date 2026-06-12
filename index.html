@@ -25,6 +25,18 @@
             max-width: 500px; 
             box-sizing: border-box; 
         }
+        
+        /* 🆕 新增：圖片抬頭的專屬樣式 */
+        .logo-container {
+            text-align: center;   /* 讓圖片區塊置中 */
+            margin-bottom: 15px;  /* 與下方文字保持距離 */
+        }
+        .logo-container img {
+            max-width: 200px;     /* 限制圖片的最大寬度，可以依你的 Logo 尺寸調整 */
+            width: 100%;          /* 讓圖片在手機上可以自動縮小 */
+            height: auto;         /* 保持圖片原本的比例，不變形 */
+        }
+
         .company-title {
             font-size: 1.1rem;
             color: #666;
@@ -132,6 +144,10 @@
 <body>
 
     <div class="form-container">
+        <div class="logo-container">
+            <img src="logo.png" alt="公司 Logo">
+        </div>
+
         <p class="company-title">翰林出版事業股份有限公司</p>
         <h2>勞工退休金個人自願提繳申請/異動表</h2>
         
@@ -192,7 +208,7 @@
     </div>
 
     <script>
-        // ⚠️ 請把下方的網址，換成你從 Google Apps Script 複製的「網頁應用程式網址」 ⚠️
+        // ⚠️ 請記得把下方的網址，換成你從 Google Apps Script 複製的網址 ⚠️
         const GAS_URL = "https://script.google.com/macros/s/AKfycby0MwGA_7vPgYdC_kZdBK0UjloELDZ0HY4XQ_zJvDj3TaSZsSKgKB1901Fy1M4SjKdQbw/exec";
 
         document.getElementById('applyForm').addEventListener('submit', function(e) {
@@ -213,7 +229,7 @@
             .then(response => response.json())
             .then(data => {
                 if(data.result === 'success') {
-                    alert('🎉 申請單已成功送出！請靜待人資審核通知。');
+                    alert('🎉 申請單已成功送出！');
                     document.getElementById('applyForm').reset();
                 } else {
                     alert('❌ 送出失敗，錯誤訊息：' + data.error);
