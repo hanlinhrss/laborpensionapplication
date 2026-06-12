@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>人資申請單測試</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; line-height: 1.6; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        input[type="text"], input[type="email"] { width: 300px; padding: 8px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h2>📝 填寫申請單 (測試版)</h2>
+    
+    <form action="https://formspree.io/f/xaqzpapl" method="POST">
+        
+        <div class="form-group">
+            <label for="name">申請人姓名：</label>
+            <input type="text" id="name" name="name" required placeholder="請輸入姓名">
+        </div>
+
+        <div class="form-group">
+            <label for="email">申請人 Email：</label>
+            <input type="email" id="email" name="email" required placeholder="請輸入 Email">
+        </div>
+
+        <button type="submit">送出申請</button>
+    </form>
+
+</body>
+</html>
