@@ -5,24 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>勞工退休金個人自願提繳申請/異動表</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .form-container { background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 100%; max-width: 460px; box-sizing: border-box; }
-        h2 { margin-top: 0; margin-bottom: 25px; color: #333; font-size: 1.4rem; text-align: center; line-height: 1.4; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 8px; color: #495057; }
-        input[type="text"], input[type="email"] { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 4px; font-size: 1rem; box-sizing: border-box; }
-        .radio-group { display: flex; gap: 15px; padding: 5px 0; }
-        .radio-label { display: flex; align-items: center; font-weight: normal; cursor: pointer; }
-        .radio-label input { margin-right: 6px; width: 18px; height: 18px; }
-        button { width: 100%; padding: 14px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: #f4f6f9; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            box-sizing: border-box; 
+        }
+        .form-container { 
+            background-color: #ffffff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            width: 100%; 
+            max-width: 500px; 
+            box-sizing: border-box; 
+        }
+        .company-title {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin: 0 0 5px 0;
+            font-weight: 500;
+        }
+        h2 { 
+            margin-top: 0; 
+            margin-bottom: 25px; 
+            color: #333; 
+            font-size: 1.4rem; 
+            text-align: center; 
+            line-height: 1.4; 
+        }
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        label { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 8px; 
+            color: #495057; 
+        }
+        input[type="text"], input[type="email"], select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ced4da; 
+            border-radius: 4px; 
+            font-size: 1rem; 
+            box-sizing: border-box; 
+            background-color: #fff;
+        }
+        .radio-group { 
+            display: flex; 
+            flex-direction: column;
+            gap: 10px; 
+            padding: 5px 0; 
+        }
+        .radio-label { 
+            display: flex; 
+            align-items: center; 
+            font-weight: normal; 
+            cursor: pointer; 
+        }
+        .radio-label input { 
+            margin-right: 8px; 
+            width: 18px; 
+            height: 18px; 
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        .info-box p {
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+        .rate-select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .rate-select-group select {
+            width: auto;
+            min-width: 70px;
+            padding: 6px 10px;
+        }
+        .note-text {
+            color: #6c757d;
+            font-size: 0.85rem;
+            border-top: 1px dashed #dee2e6;
+            padding-top: 10px;
+        }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 15px; 
+        }
+        button:hover { 
+            background-color: #0056b3; 
+        }
+        button:disabled { 
+            background-color: #cccccc; 
+            cursor: not-allowed; 
+        }
     </style>
 </head>
 <body>
 
     <div class="form-container">
-        <h2>📝 勞工退休金個人自願提繳<br>申請/異動表</h2>
+        <p class="company-title">翰林出版事業股份有限公司</p>
+        <h2>勞工退休金個人自願提繳申請/異動表</h2>
         
         <form id="applyForm">
             <div class="form-group">
@@ -31,17 +142,17 @@
             </div>
 
             <div class="form-group">
-                <label for="employee_id">申請人 員工編號：</label>
+                <label for="employee_id">申請人員工編號：</label>
                 <input type="text" id="employee_id" name="employee_id" required placeholder="請輸入員工編號">
             </div>
 
             <div class="form-group">
-                <label for="email">申請人 Email：</label>
+                <label for="email">申請人 E-mail：</label>
                 <input type="email" id="email" name="email" required placeholder="請輸入 Email">
             </div>
 
             <div class="form-group">
-                <label>申報類別：</label>
+                <label>申請類別：</label>
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="apply_type" value="開始提繳" checked> 開始提繳</label>
                     <label class="radio-label"><input type="radio" name="apply_type" value="變更提繳率"> 變更提繳率</label>
@@ -49,26 +160,51 @@
                 </div>
             </div>
 
+            <div class="info-box">
+                <div class="rate-select-group">
+                    <span>本人原勞退新制自願提繳率為投保薪資之</span>
+                    <select name="old_rate" required>
+                        <option value="0%">0%</option>
+                        <option value="1%">1%</option>
+                        <option value="2%">2%</option>
+                        <option value="3%">3%</option>
+                        <option value="4%">4%</option>
+                        <option value="5%">5%</option>
+                        <option value="6%">6%</option>
+                    </select>
+                </div>
+                <div class="rate-select-group">
+                    <span>今確定調整為</span>
+                    <select name="new_rate" required>
+                        <option value="1%">1%</option>
+                        <option value="2%">2%</option>
+                        <option value="3%">3%</option>
+                        <option value="4%">4%</option>
+                        <option value="5%">5%</option>
+                        <option value="6%">6%</option>
+                    </select>
+                </div>
+                <p class="note-text">📢 <strong>說明：</strong>自願提繳率之調整，一年二次為限，其調整生效日依勞保局之生效日為準。</p>
+            </div>
+
             <button type="submit" id="submitBtn">送出申請</button>
         </form>
     </div>
 
     <script>
-        // ⚠️ 請把下方的網址，換成你剛才從 Google Apps Script 複製的「網頁應用程式網址」 ⚠️
+        // ⚠️ 請把下方的網址，換成你從 Google Apps Script 複製的「網頁應用程式網址」 ⚠️
         const GAS_URL = "https://script.google.com/macros/s/XXXXX/exec";
 
         document.getElementById('applyForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // 阻止表單預設跳轉行為
+            e.preventDefault(); 
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
             submitBtn.innerText = "資料傳送中...";
 
-            // 自動封裝表單資料
             const formData = new FormData(this);
             const urlEncoded = new URLSearchParams(formData).toString();
 
-            // 利用 fetch 發送資料給 Google Apps Script
             fetch(GAS_URL, {
                 method: 'POST',
                 contentType: 'application/x-www-form-urlencoded',
