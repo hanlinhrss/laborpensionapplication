@@ -6,7 +6,7 @@
     <title>勞工退休金個人自願提繳申請/異動表</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .form-container { background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 100%; max-width: 500px; box-sizing: border-box; }
+        .form-container { background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 100%; max-width: 500px; box-sizing: border-box; position: relative; }
         .company-title { font-size: 1.6rem; color: #007bff; text-align: center; margin: 0 0 8px 0; font-weight: bold; line-height: 1.3; }
         h2 { margin-top: 0; margin-bottom: 25px; color: #495057; font-size: 12pt; text-align: center; line-height: 1.4; font-weight: 600; }
         .form-group { margin-bottom: 20px; }
@@ -22,9 +22,37 @@
         button { width: 100%; padding: 14px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 15px; }
         button:hover { background-color: #0056b3; }
         button:disabled { background-color: #cccccc; cursor: not-allowed; }
+
+        /* 🔒 客製化精美彈窗樣式 (無網址網標題) */
+        .custom-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .custom-alert {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 85%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .custom-alert h3 { margin-top: 0; color: #007bff; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .custom-alert p { color: #495057; font-size: 1.05rem; font-weight: bold; line-height: 1.5; margin: 20px 0; }
+        .custom-alert-btn {
+            background-color: #007bff; color: white; border: none; padding: 10px 25px;
+            font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;
+        }
+        .custom-alert-btn:hover { background-color: #0056b3; }
     </style>
 </head>
 <body>
+
     <div class="form-container">
         <p class="company-title">翰林出版事業股份有限公司</p>
         <h2>勞工退休金個人自願提繳申請/異動表</h2>
@@ -67,8 +95,26 @@
             <button type="submit" id="submitBtn">送出申請</button>
         </form>
     </div>
+
+    <div class="custom-overlay" id="alertOverlay">
+        <div class="custom-alert">
+            <h3>通知</h3>
+            <p id="alertMessage">🎉 申請單已成功送出！</p>
+            <button class="custom-alert-btn" onclick="closeCustomAlert()">確定</button>
+        </div>
+    </div>
+
     <script>
         const GAS_URL = "https://script.google.com/macros/s/AKfycby0MwGA_7vPgYdC_kZdBK0UjloELDZ0HY4XQ_zJvDj3TaSZsSKgKB1901Fy1M4SjKdQbw/exec";
+        
+        function openCustomAlert(msg) {
+            document.getElementById('alertMessage').innerText = msg;
+            document.getElementById('alertOverlay').style.display = 'flex';
+        }
+        function closeCustomAlert() {
+            document.getElementById('alertOverlay').style.display = 'none';
+        }
+
         document.getElementById('applyForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
             const submitBtn = document.getElementById('submitBtn');
@@ -87,11 +133,14 @@
             .then(response => response.json())
             .then(data => {
                 if(data.result === 'success') {
-                    alert('🎉 申請單已成功送出！請靜待人資審核通知。');
+                    // 🌟 這裡只保留最純粹的：🎉 申請單已成功送出！
+                    openCustomAlert('🎉 申請單已成功送出！');
                     document.getElementById('applyForm').reset();
-                } else { alert('❌ 送出失敗：' + data.error); }
+                } else { 
+                    openCustomAlert('❌ 送出失敗：' + data.error); 
+                }
             })
-            .catch(error => { alert('❌ 系統連線發生錯誤。'); })
+            .catch(error => { openCustomAlert('❌ 系統連線發生錯誤。'); })
             .finally(() => { submitBtn.disabled = false; submitBtn.innerText = "送出申請"; });
         });
     </script>
